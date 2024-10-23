@@ -15,5 +15,21 @@ RSpec.describe StringCalculator do
         expect(calculator.add).to eq(0)
       end
     end
+
+    context 'when input string has only one number' do
+      it 'returns the same number' do
+        expect(calculator.add('1')).to eq(1)
+      end
+    end
+
+    context 'when input string has more than one numbers' do
+      it 'returns the sum of numbers' do
+        expect(calculator.add('1,5')).to eq(6)
+      end
+
+      it 'returns the sum of numbers and ignore extra spaces' do
+        expect(calculator.add('1, 5')).to eq(6)
+      end
+    end
   end
 end
