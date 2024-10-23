@@ -51,5 +51,11 @@ RSpec.describe StringCalculator do
         expect(calculator.add('2,10001,3')).to eq(5)
       end
     end
+
+    context 'when input string has custome delimiter bigger than one char' do
+      it 'returns the sum of numbers' do
+        expect(calculator.add("//[***]\n1***2***3")).to eq(6)
+      end
+    end
   end
 end
