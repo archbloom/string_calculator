@@ -25,8 +25,8 @@ class StringCalculator
     custom_delimiter = ','
 
     if input.start_with?('//')
-      custom_delimiter = input[2]
-      input = input[3..]
+      custom_delimiter = input[2] == '[' ? input[/\[(.*?)\]/, 1] : input[2]
+      input = input.split("\n", 2)[1]
     end
 
     input.split(/[\n#{custom_delimiter}]/).map(&:to_i)

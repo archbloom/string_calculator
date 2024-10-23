@@ -52,7 +52,7 @@ RSpec.describe StringCalculator do
       end
     end
 
-    context 'when input string has custome delimiter bigger than one char' do
+    context 'when input string has custom delimiter bigger than one char' do
       it 'returns the sum of numbers' do
         expect(calculator.add("//[***]\n1***2***3")).to eq(6)
       end
