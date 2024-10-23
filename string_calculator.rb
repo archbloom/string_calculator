@@ -14,7 +14,7 @@ class StringCalculator
     numbers = remove_all_delimiters(input)
     select_all_negatives(numbers)
 
-    numbers.sum
+    numbers.reject { |n| n > 1000 }.sum
   end
 
   private
