@@ -9,5 +9,8 @@ class StringCalculator
   # returns: number - sum of numbers from the input string
   def add(input = '')
     return 0 if input.empty? || input.nil?
+
+    numbers = input.split(',').map { |str| str.strip.to_i }
+    numbers.sum
   end
 end
