@@ -3,13 +3,25 @@
 # StringCalculator class has one method, add, takes input as string
 #   and performs addition on numbers from the string
 class StringCalculator
-  # Add numbers from input string and does the sum of the numbers
+  # Add numbers from input string and perform the sum of the numbers
   # 
-  # params: input - string with numbers
-  # returns: number - sum of numbers from the input string
+  #   @param input [String] - string with numbers
+  #   @return: number [Integer] - sum of numbers from the input string
+  #   @raise: exception - if input has any negative numbers
   def add(input = '')
-    return 0 if input.empty? || input.nil?
+    return 0 if input.to_s.strip.empty?
 
+    numbers = remove_all_delimiters(input)
+    select_all_negatives(numbers)
+
+    numbers.sum
+  end
+
+  private
+
+  # Remove all the delimiters
+  #   @return: [Array] - of numbers
+  def remove_all_delimiters(input)
     custom_delimiter = ','
 
     if input.start_with?('//')
@@ -17,11 +29,14 @@ class StringCalculator
       input = input[3..]
     end
 
-    numbers = input.split(/[\n#{custom_delimiter}]/).map(&:to_i)
+    input.split(/[\n#{custom_delimiter}]/).map(&:to_i)
+  end
+
+  # Find and select negative numbers
+  #   @raise: exception - if input has any negative numbers
+  def select_all_negatives(numbers)
     negative_numbers = numbers.select(&:negative?)
 
     raise "Negative numbers not allowed: #{negative_numbers.join(',')}" if negative_numbers.any?
-
-    numbers.sum
   end
 end
