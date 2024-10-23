@@ -10,7 +10,14 @@ class StringCalculator
   def add(input = '')
     return 0 if input.empty? || input.nil?
 
-    numbers = input.split(/[\n,]/).map(&:to_i)
+    custom_delimiter = ','
+
+    if input.start_with?('//')
+      custom_delimiter = input[2]
+      input = input[3..]
+    end
+
+    numbers = input.split(/[\n#{custom_delimiter}]/).map(&:to_i)
     numbers.sum
   end
 end
