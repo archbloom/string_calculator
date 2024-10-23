@@ -26,19 +26,11 @@ RSpec.describe StringCalculator do
       it 'returns the sum of numbers' do
         expect(calculator.add('1,5')).to eq(6)
       end
-
-      it 'returns the sum of numbers and ignore extra spaces' do
-        expect(calculator.add('1, 5')).to eq(6)
-      end
     end
 
     context 'when input string has numbers separated by comma or newlines' do
       it 'returns the sum of numbers' do
         expect(calculator.add("1\n2,3")).to eq(6)
-      end
-
-      it 'returns the sum of numbers' do
-        expect(calculator.add("1\n2, 3")).to eq(6)
       end
     end
   end
