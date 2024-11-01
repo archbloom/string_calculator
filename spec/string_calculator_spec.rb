@@ -57,5 +57,11 @@ RSpec.describe StringCalculator do
         expect(calculator.add("//[***]\n1***2***3")).to eq(6)
       end
     end
+
+    context 'when input string has only one * then mutliply numbers' do
+      it 'returns multiplication of numbers' do
+        expect(calculator.add("//*\n3*2*2")).to eq(12)
+      end
+    end
   end
 end

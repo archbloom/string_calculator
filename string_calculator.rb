@@ -11,17 +11,18 @@ class StringCalculator
   def add(input = '')
     return 0 if input.to_s.strip.empty?
 
-    numbers = remove_all_delimiters(input)
+    operator, initial_val, numbers = parse_numbers_and_operator(input)
     select_all_negatives(numbers)
 
-    numbers.reject { |n| n > 1000 }.sum
+    numbers.reduce(initial_val, operator.to_sym)
   end
 
   private
 
-  # Remove all the delimiters
-  #   @return: [Array] - of numbers
-  def remove_all_delimiters(input)
+  # Parse numbers, initial value for the operation and operator from input
+  #   @input: input [String] - string with numbers
+  #   @return: [operator, initial value, Array of numbers]
+  def parse_numbers_and_operator(input)
     custom_delimiter = ','
 
     if input.start_with?('//')
@@ -29,7 +30,16 @@ class StringCalculator
       input = input.split("\n", 2)[1]
     end
 
-    input.split(/[\n#{custom_delimiter}]/).map(&:to_i)
+    operator, initial_val = parse_operator_and_initial_value(custom_delimiter)
+    numbers = input.split(/[\n#{custom_delimiter}]/).map(&:to_i).reject{ |n| n > 1000 }
+    [operator, initial_val, numbers]
+  end
+
+  # Parse the operator and determine the intial value
+  #   @input: delimiter [String]
+  #   @return: [operator, initial_value]
+  def parse_operator_and_initial_value(delimiter)
+    delimiter == '*' ? ['*', 1] : ['+', 0]
   end
 
   # Find and select negative numbers
