@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: '3.0'
+        ruby-version: ['3.0']
 
     steps:
     - uses: actions/checkout@v4
@@ -37,5 +37,6 @@ jobs:
           gem install bundler
           bundle install
 
+    # Add or replace test runners here
     - name: Run tests
-      run: bundle exec rspec
+      run: bin/rake
