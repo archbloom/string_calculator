@@ -39,4 +39,4 @@ jobs:
 
     # Add or replace test runners here
     - name: Run tests
-      run: bundle exec rake
+      run: rspec
