@@ -48,7 +48,7 @@ jobs:
         bundle exec rspec --format documentation --out coverage/rspec_results.txt
 
     - name: Upload test results
-      uses: actions/upload-artifacts@v3
+      uses: actions/upload-artifact@v3
       with:
         name: rspec-results
         path: coverage/rspec_results.txt
