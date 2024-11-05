@@ -20,6 +20,9 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+
     strategy:
       matrix:
         ruby-version: ['3.0']
@@ -39,4 +42,20 @@ jobs:
 
     # Add or replace test runners here
     - name: Run tests
-      run: bundle exec rspec
+      # run: bundle exec rspec
+      run: |
+        mkdir: -p coverage
+        bundle exec rspec --format documentation --out coverage/rspec_results.txt
+
+    - name: Upload test results
+      uses: actions/upload-artifacts@v3
+      with:
+        name: rspec-results
+        path: coverage/rspec_results.txt
+
+    - name: Show result in summary
+      run: |
+        echo '## Rspec result' >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo coverage/rspec_results.txt >> $GITHUB_STEP_SUMMARY
+        echo '```'
