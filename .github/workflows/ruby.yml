@@ -44,7 +44,7 @@ jobs:
     - name: Run tests
       # run: bundle exec rspec
       run: |
-        mkdir: -p coverage
+        mkdir -p coverage
         bundle exec rspec --format documentation --out coverage/rspec_results.txt
 
     - name: Upload test results
