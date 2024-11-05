@@ -59,19 +59,3 @@ jobs:
         echo '```' >> $GITHUB_STEP_SUMMARY
         echo coverage/rspec_results.txt >> $GITHUB_STEP_SUMMARY
         echo '```'
-
-    - name: Show detailed test coverage in summary
-      run: |
-        echo '## Test Coverage Summary' >> $GITHUB_STEP_SUMMARY
-        echo 'File | Coverage (%)' >> $GITHUB_STEP_SUMMARY
-        echo '--- | ---' >> $GITHUB_STEP_SUMMARY
-          
-        # Parse file-by-file coverage from SimpleCov’s JSON result
-        jq -r '.[] | .files | to_entries[] | "\(.value.filename) | \(.value.covered_percent)%"' coverage/.resultset.json \
-        | while read line; do
-            echo "$line" >> $GITHUB_STEP_SUMMARY
-          done
-          
-        echo '---' >> $GITHUB_STEP_SUMMARY
-        echo 'Full coverage report is available in the coverage/ directory.' >> $GITHUB_STEP_SUMMARY
-      shell: bash
